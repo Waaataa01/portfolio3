@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIR STUDIO — Minimal Apparel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --bg-elevated: #111111;
+    --bg-card: #161616;
+    --text: #F0EDE8;
+    --text-muted: #B8B4AE;
+    --text-dim: #918C86;
+    --accent: #C8B8A0;
+    --accent-hover: #D9CCB8;
+    --border: #2A2826;
+    --border-light: #1E1C1A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', 'Zen Kaku Gothic New', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── UTILITY ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ── ANNOUNCEMENT BAR ── */
+  .announcement {
+    background: var(--accent);
+    color: var(--bg);
+    text-align: center;
+    padding: 0.55rem 1rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 10, 0.9);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.2rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-icons {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+  }
+
+  .nav-icon {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-icon:hover { color: var(--text); }
+
+  .cart-count {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.55rem;
+    font-weight: 500;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 92vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(135deg, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.7) 50%, rgba(10,10,10,0.95) 100%),
+      linear-gradient(220deg, #2A2420 0%, #1A1614 40%, #0A0A0A 100%);
+    z-index: 0;
+  }
+
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .hero-text { padding-right: 2rem; }
+
+  .hero-season {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s ease 0.3s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s ease 0.5s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.8;
+    max-width: 380px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s ease 0.7s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s ease 0.9s forwards;
+  }
+
+  .btn-main {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2rem;
+    background: var(--accent);
+    color: var(--bg);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+
+  .btn-main:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2rem;
+    background: transparent;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--text-muted);
+  }
+
+  .hero-visual {
+    position: relative;
+    height: 70vh;
+    opacity: 0;
+    animation: fadeIn 1.2s ease 0.4s forwards;
+  }
+
+  .hero-image-block {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(170deg, #2A2520 0%, #1C1916 60%, #141210 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-image-block::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(10,10,10,0.6));
+  }
+
+  .hero-image-overlay {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    z-index: 2;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .hero-model-tag {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 2;
+    writing-mode: vertical-rl;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* Decorative mannequin silhouette */
+  .hero-silhouette {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px;
+    opacity: 0.08;
+  }
+
+  /* ── SECTION COMMON ── */
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    max-width: 480px;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .section-header .section-desc {
+    margin: 0 auto;
+  }
+
+  /* ── CATEGORY STRIP ── */
+  .categories {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .category-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    transition: all 0.5s ease;
+  }
+
+  .category-card:hover {
+    border-color: var(--border);
+    transform: translateY(-4px);
+  }
+
+  .category-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.6s ease;
+  }
+
+  .category-card:hover .category-bg {
+    transform: scale(1.04);
+  }
+
+  .cat-tops { background: linear-gradient(160deg, #1E1B18 0%, #14120F 100%); }
+  .cat-bottoms { background: linear-gradient(160deg, #1B1C1E 0%, #0F1014 100%); }
+  .cat-outer { background: linear-gradient(160deg, #1E1C1B 0%, #141210 100%); }
+  .cat-acc { background: linear-gradient(160deg, #1C1B1E 0%, #100F14 100%); }
+
+  .category-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.2rem;
+    opacity: 0.12;
+  }
+
+  .category-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 100%);
+  }
+
+  .category-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+
+  .category-count {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ── FEATURED PRODUCTS ── */
+  .featured {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card:hover {
+    border-color: var(--border);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .product-image {
+    aspect-ratio: 3/4;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-image-bg {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease;
+  }
+
+  .product-card:hover .product-image-bg {
+    transform: scale(1.03);
+  }
+
+  .prod-1 { background: linear-gradient(170deg, #201D1A 0%, #161412 60%, #0E0D0B 100%); }
+  .prod-2 { background: linear-gradient(170deg, #1A1D20 0%, #121416 60%, #0B0D0E 100%); }
+  .prod-3 { background: linear-gradient(170deg, #1D1A1D 0%, #141214 60%, #0D0B0E 100%); }
+  .prod-4 { background: linear-gradient(170deg, #1D1F1A 0%, #141612 60%, #0D0E0B 100%); }
+  .prod-5 { background: linear-gradient(170deg, #1F1D1A 0%, #161412 60%, #0E0D0B 100%); }
+  .prod-6 { background: linear-gradient(170deg, #1A1B1F 0%, #121316 60%, #0B0C0E 100%); }
+
+  .product-tag {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+  }
+
+  .product-wishlist {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.3s;
+  }
+
+  .product-card:hover .product-wishlist { opacity: 1; }
+
+  .product-sizes {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+  }
+
+  .product-card:hover .product-sizes {
+    transform: translateY(0);
+  }
+
+  .size-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .size-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .product-info {
+    padding: 1.2rem 1.2rem 1.5rem;
+  }
+
+  .product-brand {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.4rem;
+  }
+
+  .product-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  .product-price {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+  }
+
+  .product-price-old {
+    color: var(--text-dim);
+    text-decoration: line-through;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  /* Garment icon */
+  .product-garment-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    opacity: 0.07;
+  }
+
+  /* ── LOOKBOOK ── */
+  .lookbook {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .lookbook-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    min-height: 600px;
+  }
+
+  .lookbook-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border-light);
+  }
+
+  .lookbook-item:first-child {
+    grid-row: 1 / 3;
+  }
+
+  .lookbook-bg {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    transition: transform 0.7s ease;
+  }
+
+  .lookbook-item:hover .lookbook-bg {
+    transform: scale(1.03);
+  }
+
+  .look-1 { background: linear-gradient(150deg, #252018 0%, #181410 50%, #0C0A08 100%); }
+  .look-2 { background: linear-gradient(150deg, #1A1E22 0%, #10141A 50%, #080A0E 100%); }
+  .look-3 { background: linear-gradient(150deg, #22201A 0%, #161410 50%, #0A0806 100%); }
+
+  .lookbook-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+  }
+
+  .lookbook-tag {
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .lookbook-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+
+  .lookbook-cta {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.3s;
+  }
+
+  .lookbook-item:hover .lookbook-cta { color: var(--accent); }
+
+  /* Silhouette hints */
+  .lookbook-silhouette {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    opacity: 0.05;
+  }
+
+  /* ── BRAND STORY ── */
+  .story {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .story-visual {
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, #1E1B18 0%, #0E0C0A 100%);
+    border: 1px solid var(--border-light);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .story-visual-icon {
+    font-size: 4rem;
+    opacity: 0.06;
+  }
+
+  .story-visual-tag {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .story-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+  }
+
+  .story-text h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .story-text p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.9;
+    margin-bottom: 1rem;
+  }
+
+  .story-values {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .story-value {
+    text-align: center;
+  }
+
+  .story-value-number {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 0.2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .story-value-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* ── INSTAGRAM ── */
+  .instagram {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .insta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+  }
+
+  .insta-item {
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border-light);
+  }
+
+  .insta-bg {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease;
+  }
+
+  .insta-item:hover .insta-bg { transform: scale(1.06); }
+
+  .ig-1 { background: linear-gradient(135deg, #201C18, #141210); }
+  .ig-2 { background: linear-gradient(135deg, #1C1E20, #101214); }
+  .ig-3 { background: linear-gradient(135deg, #1E1A1C, #12100E); }
+  .ig-4 { background: linear-gradient(135deg, #181C1E, #0E1012); }
+  .ig-5 { background: linear-gradient(135deg, #1E1E1A, #121210); }
+
+  .insta-hover {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--text);
+  }
+
+  .insta-item:hover .insta-hover { opacity: 1; }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    padding: 5rem 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .newsletter-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .newsletter-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .newsletter-text p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  .newsletter-input {
+    padding: 0.9rem 1.4rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-right: none;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.8rem;
+    width: 280px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .newsletter-input::placeholder { color: var(--text-dim); }
+  .newsletter-input:focus { border-color: var(--accent); }
+
+  .newsletter-btn {
+    padding: 0.9rem 1.8rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: 1px solid var(--accent);
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+
+  .newsletter-btn:hover { background: var(--accent-hover); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 4rem 0 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-brand .logo {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+  }
+
+  .footer-brand p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .social-icon {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .social-icon:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .footer-column h4 {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+  }
+
+  .footer-column ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .footer-column a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    transition: color 0.3s;
+  }
+
+  .footer-column a:hover { color: var(--text); }
+
+  .footer-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-payment {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .payment-icon {
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border-light);
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SAMPLE NOTICE ── */
+  .sample-notice {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: rgba(200, 184, 160, 0.95);
+    color: var(--bg);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 999;
+    backdrop-filter: blur(8px);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-content { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-visual { height: 50vh; }
+    .hero-text { padding-right: 0; }
+    .category-grid { grid-template-columns: repeat(2, 1fr); }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .lookbook-grid { grid-template-columns: 1fr; }
+    .lookbook-item:first-child { grid-row: auto; }
+    .story-grid { grid-template-columns: 1fr; }
+    .story-visual { aspect-ratio: 16/9; }
+    .insta-grid { grid-template-columns: repeat(3, 1fr); }
+    .insta-item:nth-child(4),
+    .insta-item:nth-child(5) { display: none; }
+    .newsletter-inner { flex-direction: column; text-align: center; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .header-inner { padding: 1rem 1.2rem; }
+    .container { padding: 0 1.2rem; }
+    .hero { height: auto; padding: 6rem 0 3rem; }
+    .hero-visual { height: 40vh; }
+    .category-grid { grid-template-columns: 1fr 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+    .lookbook-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .newsletter-form { flex-direction: column; }
+    .newsletter-input { width: 100%; border-right: 1px solid var(--border); }
+    .footer-bottom { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SAMPLE NOTICE -->
+<div class="sample-notice">✦ Sample Site — This is a demo</div>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement">
+  送料無料 — ¥15,000以上のご購入で全国配送無料
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">Noir<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#new">New Arrivals</a></li>
+      <li><a href="#categories">Collections</a></li>
+      <li><a href="#lookbook">Lookbook</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-icons">
+      <span class="nav-icon">☰</span>
+      <span class="nav-icon">♡</span>
+      <span class="nav-icon">
+        ◎
+        <span class="cart-count">2</span>
+      </span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="hero-season">2026 Spring / Summer</p>
+      <h1>Less Noise,<br>More <em>Presence.</em></h1>
+      <p class="hero-desc">
+        削ぎ落とすことで際立つ存在感。<br>
+        素材と仕立てに妥協しない、<br>ミニマルで上質なワードローブ。
+      </p>
+      <div class="hero-actions">
+        <a href="#new" class="btn-main">Shop New Arrivals →</a>
+        <a href="#lookbook" class="btn-outline">Lookbook</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-image-block">
+        <svg class="hero-silhouette" viewBox="0 0 200 300" fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.1" style="width:220px">
+          <line x1="100" y1="20" x2="100" y2="280"/>
+          <line x1="40" y1="80" x2="160" y2="80"/>
+          <line x1="60" y1="150" x2="140" y2="150"/>
+          <line x1="50" y1="220" x2="150" y2="220"/>
+          <circle cx="100" cy="50" r="30" stroke-width="0.4"/>
+          <circle cx="100" cy="150" r="60" stroke-width="0.3"/>
+          <rect x="70" y="100" width="60" height="90" rx="2" stroke-width="0.4"/>
+        </svg>
+        <span class="hero-image-overlay">SS26 Campaign</span>
+        <span class="hero-model-tag">Editorial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-label">Collections</p>
+      <h2 class="section-title">Shop by Category</h2>
+      <p class="section-desc">シーズンを通して活躍するベーシックからステートメントピースまで</p>
+    </div>
+    <div class="category-grid">
+      <div class="category-card fade-in">
+        <div class="category-bg cat-tops"></div>
+        <span class="category-icon">▽</span>
+        <div class="category-info">
+          <div class="category-name">Tops</div>
+          <div class="category-count">42 Items</div>
+        </div>
+      </div>
+      <div class="category-card fade-in">
+        <div class="category-bg cat-bottoms"></div>
+        <span class="category-icon">▯</span>
+        <div class="category-info">
+          <div class="category-name">Bottoms</div>
+          <div class="category-count">36 Items</div>
+        </div>
+      </div>
+      <div class="category-card fade-in">
+        <div class="category-bg cat-outer"></div>
+        <span class="category-icon">◇</span>
+        <div class="category-info">
+          <div class="category-name">Outerwear</div>
+          <div class="category-count">18 Items</div>
+        </div>
+      </div>
+      <div class="category-card fade-in">
+        <div class="category-bg cat-acc"></div>
+        <span class="category-icon">○</span>
+        <div class="category-info">
+          <div class="category-name">Accessories</div>
+          <div class="category-count">24 Items</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured" id="new">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-label">New Arrivals</p>
+      <h2 class="section-title">Latest Collection</h2>
+      <p class="section-desc">今シーズンの新作をいち早くチェック</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card fade-in">
+        <div class="product-image">
+          <div class="product-image-bg prod-1"></div>
+          <span class="product-garment-icon">▽</span>
+          <span class="product-tag">New</span>
+          <span class="product-wishlist">♡</span>
+          <div class="product-sizes">
+            <button class="size-btn">S</button>
+            <button class="size-btn">M</button>
+            <button class="size-btn">L</button>
+            <button class="size-btn">XL</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-brand">Noir Studio</p>
+          <h3 class="product-name">Oversized Linen Shirt</h3>
+          <p class="product-price">¥12,800</p>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-image">
+          <div class="product-image-bg prod-2"></div>
+          <span class="product-garment-icon">▯</span>
+          <span class="product-tag">New</span>
+          <span class="product-wishlist">♡</span>
+          <div class="product-sizes">
+            <button class="size-btn">S</button>
+            <button class="size-btn">M</button>
+            <button class="size-btn">L</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-brand">Noir Studio</p>
+          <h3 class="product-name">Tapered Wide Trousers</h3>
+          <p class="product-price">¥15,400</p>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-image">
+          <div class="product-image-bg prod-3"></div>
+          <span class="product-garment-icon">◇</span>
+          <span class="product-wishlist">♡</span>
+          <div class="product-sizes">
+            <button class="size-btn">M</button>
+            <button class="size-btn">L</button>
+            <button class="size-btn">XL</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-brand">Noir Studio</p>
+          <h3 class="product-name">Lightweight Mods Coat</h3>
+          <p class="product-price">¥28,600</p>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-image">
+          <div class="product-image-bg prod-4"></div>
+          <span class="product-garment-icon">▽</span>
+          <span class="product-tag">Sale</span>
+          <span class="product-wishlist">♡</span>
+          <div class="product-sizes">
+            <button class="size-btn">S</button>
+            <button class="size-btn">M</button>
+            <button class="size-btn">L</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-brand">Noir Studio</p>
+          <h3 class="product-name">Cotton Crewneck Tee</h3>
+          <p class="product-price"><span class="product-price-old">¥6,800</span>¥4,900</p>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-image">
+          <div class="product-image-bg prod-5"></div>
+          <span class="product-garment-icon">○</span>
+          <span class="product-wishlist">♡</span>
+          <div class="product-sizes">
+            <button class="size-btn">F</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-brand">Noir Studio</p>
+          <h3 class="product-name">Leather Minimal Tote</h3>
+          <p class="product-price">¥19,800</p>
+        </div>
+      </div>
+      <div class="product-card fade-in">
+        <div class="product-image">
+          <div class="product-image-bg prod-6"></div>
+          <span class="product-garment-icon">▽</span>
+          <span class="product-tag">Limited</span>
+          <span class="product-wishlist">♡</span>
+          <div class="product-sizes">
+            <button class="size-btn">S</button>
+            <button class="size-btn">M</button>
+            <button class="size-btn">L</button>
+            <button class="size-btn">XL</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <p class="product-brand">Noir Studio</p>
+          <h3 class="product-name">Sheer Knit Polo</h3>
+          <p class="product-price">¥9,600</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOOKBOOK -->
+<section class="lookbook" id="lookbook">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-label">Lookbook</p>
+      <h2 class="section-title">SS26 Editorial</h2>
+      <p class="section-desc">シーズンのスタイリング提案をご覧ください</p>
+    </div>
+    <div class="lookbook-grid">
+      <div class="lookbook-item fade-in">
+        <div class="lookbook-bg look-1"></div>
+        <span class="lookbook-silhouette">◈</span>
+        <div class="lookbook-overlay">
+          <span class="lookbook-tag">Look 01</span>
+          <h3 class="lookbook-title">Quiet Luxury</h3>
+          <span class="lookbook-cta">View Styling →</span>
+        </div>
+      </div>
+      <div class="lookbook-item fade-in">
+        <div class="lookbook-bg look-2"></div>
+        <span class="lookbook-silhouette">◆</span>
+        <div class="lookbook-overlay">
+          <span class="lookbook-tag">Look 02</span>
+          <h3 class="lookbook-title">Urban Layers</h3>
+          <span class="lookbook-cta">View Styling →</span>
+        </div>
+      </div>
+      <div class="lookbook-item fade-in">
+        <div class="lookbook-bg look-3"></div>
+        <span class="lookbook-silhouette">◇</span>
+        <div class="lookbook-overlay">
+          <span class="lookbook-tag">Look 03</span>
+          <h3 class="lookbook-title">Effortless Form</h3>
+          <span class="lookbook-cta">View Styling →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND STORY -->
+<section class="story" id="about">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-visual fade-in">
+        <span class="story-visual-icon">✦</span>
+        <span class="story-visual-tag">Since 2024 — Tokyo</span>
+      </div>
+      <div class="story-text fade-in">
+        <p class="section-label">Our Story</p>
+        <h2>静かに纏う、<br><em>自分らしさ。</em></h2>
+        <p>
+          Noir Studioは「Less is More」の哲学のもと、
+          本当に必要なものだけで構成されたワードローブを提案するアパレルブランドです。
+        </p>
+        <p>
+          素材の選定から縫製まで一つひとつにこだわり、
+          永く愛される一着をお届けします。
+          過剰なトレンドに流されない、
+          あなた自身のスタイルを見つけてください。
+        </p>
+        <div class="story-values">
+          <div class="story-value">
+            <div class="story-value-number">100%</div>
+            <div class="story-value-label">天然素材使用</div>
+          </div>
+          <div class="story-value">
+            <div class="story-value-number">48h</div>
+            <div class="story-value-label">最短出荷</div>
+          </div>
+          <div class="story-value">
+            <div class="story-value-number">30日</div>
+            <div class="story-value-label">返品保証</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="instagram">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-label">@noir_studio</p>
+      <h2 class="section-title">Follow Us</h2>
+    </div>
+    <div class="insta-grid">
+      <div class="insta-item fade-in">
+        <div class="insta-bg ig-1"></div>
+        <div class="insta-hover">♡ 342</div>
+      </div>
+      <div class="insta-item fade-in">
+        <div class="insta-bg ig-2"></div>
+        <div class="insta-hover">♡ 518</div>
+      </div>
+      <div class="insta-item fade-in">
+        <div class="insta-bg ig-3"></div>
+        <div class="insta-hover">♡ 276</div>
+      </div>
+      <div class="insta-item fade-in">
+        <div class="insta-bg ig-4"></div>
+        <div class="insta-hover">♡ 491</div>
+      </div>
+      <div class="insta-item fade-in">
+        <div class="insta-bg ig-5"></div>
+        <div class="insta-hover">♡ 387</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-inner fade-in">
+      <div class="newsletter-text">
+        <h2>Newsletter</h2>
+        <p>新作情報や限定セールをいち早くお届けします</p>
+      </div>
+      <div class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="your@email.com">
+        <button class="newsletter-btn">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">Noir<span>.</span></a>
+        <p>Less Noise, More Presence.<br>ミニマルで上質なアパレルブランド。</p>
+        <div class="footer-social">
+          <div class="social-icon">𝕏</div>
+          <div class="social-icon">◎</div>
+          <div class="social-icon">▶</div>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Tops</a></li>
+          <li><a href="#">Bottoms</a></li>
+          <li><a href="#">Outerwear</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">サイズガイド</a></li>
+          <li><a href="#">配送について</a></li>
+          <li><a href="#">返品・交換</a></li>
+          <li><a href="#">お問い合わせ</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">ブランドストーリー</a></li>
+          <li><a href="#">サステナビリティ</a></li>
+          <li><a href="#">プライバシーポリシー</a></li>
+          <li><a href="#">特定商取引法に基づく表記</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Noir Studio. All rights reserved. ─ This is a sample website.</span>
+      <div class="footer-payment">
+        <span class="payment-icon">VISA</span>
+        <span class="payment-icon">MC</span>
+        <span class="payment-icon">AMEX</span>
+        <span class="payment-icon">PayPay</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
