@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>komorebi coffee | 木漏れ日のような、やさしい一杯を。</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #FAF6F0;
@@ -17,6 +18,10 @@
     --sage: #A8B5A0;
     --card-bg: #FFFFFF;
     --border: #E8E0D8;
+    --font-body: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+    --font-heading: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    --font-latin: 'Cormorant Garamond', Georgia, serif;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,10 +35,12 @@
   }
 
   body {
-    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-family: var(--font-body);
     background: var(--cream);
     color: var(--text-dark);
     line-height: 1.8;
+    font-weight: 400;
+    letter-spacing: 0.025em;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -79,6 +86,14 @@
   }
 
   .nav-toggle-icon { font-size: 1rem; line-height: 1; }
+
+  .menu-icon { display: grid; gap: 5px; width: 16px; }
+  .menu-icon::before, .menu-icon::after {
+    content: ''; display: block; height: 1px; background: currentColor;
+    transition: transform 0.35s var(--ease-out);
+  }
+  .nav-toggle[aria-expanded="true"] .menu-icon::before { transform: translateY(3px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .menu-icon::after { transform: translateY(-3px) rotate(-45deg); }
 
   .nav-links { display: flex; gap: 2rem; }
   .nav-links a {
@@ -192,27 +207,27 @@
   }
 
   .hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
-    font-weight: 300;
-    line-height: 1.3;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.3vw, 3rem);
+    font-weight: 500;
+    line-height: 1.65;
     color: var(--warm-brown);
     margin-bottom: 1.5rem;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
   }
 
   .hero h1 em {
-    font-style: italic;
+    font-style: normal;
     color: var(--accent-terracotta);
   }
 
   .hero-title-line { display: block; }
 
   .hero-desc {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--warm-brown);
     font-weight: 400;
-    line-height: 2;
+    line-height: 2.15;
     margin-bottom: 2.5rem;
     max-width: 420px;
   }
@@ -264,6 +279,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
   }
 
   .float-badge {
@@ -299,8 +315,8 @@
 
   .float-badge-sub {
     font-size: 0.88rem;
-    color: var(--text-light);
-    font-weight: 300;
+    color: var(--light-brown);
+    font-weight: 400;
   }
 
   .float-badge-2 {
@@ -356,9 +372,9 @@
   }
 
   .concept h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 300;
+    font-family: var(--font-heading);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 500;
     color: var(--warm-brown);
     line-height: 1.8;
     margin-bottom: 1.5rem;
@@ -366,9 +382,9 @@
   }
 
   .concept p {
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     color: var(--light-brown);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 2.2;
   }
 
@@ -388,8 +404,8 @@
 
   .menu h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
-    font-weight: 300;
+    font-size: 2.8rem;
+    font-weight: 500;
     color: var(--warm-brown);
     letter-spacing: 0.03em;
   }
@@ -400,7 +416,7 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-light);
-    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-family: var(--font-body);
     font-weight: 400;
     margin-bottom: 0.3rem;
   }
@@ -459,6 +475,7 @@
   }
 
   .menu-card h3 {
+    font-family: var(--font-heading);
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 0.4rem;
@@ -482,9 +499,9 @@
 
   .menu-card-price small {
     font-size: 0.7rem;
-    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-family: var(--font-body);
     color: var(--text-light);
-    font-weight: 300;
+    font-weight: 400;
   }
 
   /* ── FEATURES ── */
@@ -519,9 +536,9 @@
   }
 
   .features h2 {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-size: 2rem;
-    font-weight: 300;
+    font-weight: 500;
     color: #fff;
     margin-bottom: 3rem;
     text-align: center;
@@ -553,15 +570,16 @@
   }
 
   .feature-item h3 {
+    font-family: var(--font-heading);
     font-size: 0.95rem;
     font-weight: 500;
     margin-bottom: 0.6rem;
   }
 
   .feature-item p {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.6);
-    font-weight: 300;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.8);
+    font-weight: 400;
     line-height: 1.9;
   }
 
@@ -581,8 +599,8 @@
 
   .access h2 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
+    font-size: 2.8rem;
+    font-weight: 500;
     color: var(--warm-brown);
     margin-bottom: 2rem;
   }
@@ -593,7 +611,7 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--text-light);
-    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-family: var(--font-body);
     font-weight: 400;
     margin-bottom: 0.3rem;
   }
@@ -622,7 +640,7 @@
   .access-value {
     font-size: 0.88rem;
     color: var(--text-dark);
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .access-map {
@@ -648,9 +666,9 @@
   .cta-section .section-label { margin-bottom: 1.5rem; }
 
   .cta-section h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
+    font-family: var(--font-heading);
+    font-size: clamp(1.35rem, 2.5vw, 2rem);
+    font-weight: 500;
     color: var(--warm-brown);
     margin-bottom: 1rem;
   }
@@ -658,7 +676,7 @@
   .cta-section p {
     font-size: 0.88rem;
     color: var(--light-brown);
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 2rem;
   }
 
@@ -761,6 +779,57 @@
     box-shadow: 0 4px 16px rgba(193,122,86,0.3);
   }
 
+  /* ── TYPOGRAPHY & MOTION ── */
+  .nav-logo, .footer-logo { font-family: var(--font-latin); font-weight: 600; letter-spacing: 0.025em; }
+  .nav-links a { position: relative; letter-spacing: 0.04em; }
+  .nav-links a::after {
+    content: ''; position: absolute; left: 0; bottom: -4px;
+    width: 100%; height: 1px; background: currentColor;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s var(--ease-out);
+  }
+  .nav-links a:hover::after, .nav-links a:focus-visible::after { transform: scaleX(1); }
+  .hero-deco { display: none; }
+  .section-label { font-size: 0.7rem; letter-spacing: 0.18em; }
+  .concept h2 { line-height: 1.95; letter-spacing: 0.035em; }
+  .hero-cta, .cta-btn-primary, .cta-btn-secondary { font-weight: 500; letter-spacing: 0.04em; }
+  .hero-cta { transition: background-color 0.35s ease, transform 0.45s var(--ease-out), box-shadow 0.45s ease; }
+  .float-badge, .float-badge-2 { border: 1px solid var(--border); box-shadow: 0 8px 28px rgba(92,64,51,0.06); }
+  .float-badge-text { font-family: var(--font-latin); font-size: 1.35rem; font-weight: 600; letter-spacing: 0; }
+  .float-badge-2 .float-badge-text { font-size: 1.35rem; }
+  .float-badge-icon { color: var(--warm-brown); background: #E5EADF; }
+  .line-icon { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+  .icon-definitions { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .feature-icon { display: flex; justify-content: center; color: #DFC3AB; }
+  .feature-icon .line-icon { width: 36px; height: 36px; stroke-width: 1.1; }
+  .menu-card { transition: transform 0.5s var(--ease-out), box-shadow 0.5s ease, border-color 0.4s ease; }
+  .menu-card-image img { transition: transform 0.8s var(--ease-out); }
+  .reveal-pending { opacity: 0; }
+  .reveal-pending:focus-within { opacity: 1; }
+
+  @keyframes enter-soft {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes image-settle {
+    from { transform: scale(1.045); }
+    to { transform: scale(1); }
+  }
+  @keyframes menu-open {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-tag, .hero h1, .hero-desc, .hero-cta, .hero-visual {
+      animation: enter-soft 0.8s var(--ease-out) backwards;
+    }
+    .hero h1 { animation-delay: 0.1s; }
+    .hero-desc { animation-delay: 0.2s; }
+    .hero-cta { animation-delay: 0.3s; }
+    .hero-visual { animation-delay: 0.2s; }
+    .hero-image-placeholder img { animation: image-settle 1.4s var(--ease-out) both; }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     nav { padding: 0.75rem 1.25rem; gap: 1rem; flex-wrap: wrap; }
@@ -779,7 +848,7 @@
       border-bottom: 1px solid var(--border);
       box-shadow: 0 12px 20px rgba(92,64,51,0.06);
     }
-    nav[data-enhanced][data-menu-open="true"] .nav-links { display: flex; }
+    nav[data-enhanced][data-menu-open="true"] .nav-links { display: flex; animation: menu-open 0.3s var(--ease-out) both; }
     nav[data-enhanced] .nav-links a { padding: 0.65rem 0; }
     .sample-badge {
       position: absolute;
@@ -790,7 +859,7 @@
     }
     .hero { min-height: auto; padding: 7rem 1.25rem 3rem; }
     .hero-content { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
-    .hero h1 { font-size: clamp(1.5rem, 6.8vw, 2.1rem); line-height: 1.5; }
+    .hero h1 { font-size: clamp(1.4rem, 6.4vw, 2rem); line-height: 1.7; letter-spacing: 0.025em; }
     .hero-tag { font-size: 0.6rem; letter-spacing: 0.1em; gap: 0.5rem; margin-bottom: 1rem; }
     .hero-tag::before { width: 18px; flex-shrink: 0; }
     .hero-desc { margin-bottom: 1.5rem; }
@@ -805,7 +874,7 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.04);
     }
     .float-badge-icon { width: 34px; height: 34px; flex-shrink: 0; font-size: 0.9rem; }
-    .float-badge-text, .float-badge-2 .float-badge-text { font-size: 0.9rem; }
+    .float-badge-text, .float-badge-2 .float-badge-text { font-size: 1.15rem; }
     .float-badge-sub, .float-badge-2 .float-badge-sub { font-size: 0.75rem; }
     .hero-deco { font-size: 9rem; right: 0; top: 0; }
     .hero-dots, .hero-vertical-text, .hero-line-accent { display: none; }
@@ -819,10 +888,44 @@
     .access-content { grid-template-columns: 1fr; }
     .cta-section { padding: 4rem 1.5rem; }
     .cta-buttons { flex-direction: column; align-items: center; }
+    .nav-links a::after { display: none; }
+    .hero-desc { font-size: 0.875rem; line-height: 2.1; }
+    .hero h1 { margin-bottom: 1.25rem; }
+    .concept p { text-align: left; }
+    .feature-item { padding: 1.75rem; }
+  }
+
+  @media (hover: none) {
+    .menu-card:hover, .hero-cta:hover, .cta-btn-primary:hover { transform: none; box-shadow: none; }
+    .menu-card:hover .menu-card-image img { transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal-pending { opacity: 1; }
+    .menu-card:hover, .hero-cta:hover, .cta-btn-primary:hover,
+    .menu-card:hover .menu-card-image img, .hero-cta:hover::after { transform: none; }
   }
 </style>
 </head>
 <body>
+
+<svg class="icon-definitions" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="icon-leaf" viewBox="0 0 32 32">
+    <path d="M8 24C2 12 12 5 27 5c0 15-7 23-19 19Z"/>
+    <path d="m5 28 17-17M12 21v-7m0 7h7"/>
+  </symbol>
+  <symbol id="icon-cup" viewBox="0 0 32 32">
+    <path d="M5 13h18v8a7 7 0 0 1-7 7h-4a7 7 0 0 1-7-7v-8Zm18 2h2a4 4 0 0 1 0 8h-2M3 30h24M11 3c-3 3 3 4 0 7m7-7c-3 3 3 4 0 7"/>
+  </symbol>
+  <symbol id="icon-roast" viewBox="0 0 32 32">
+    <path d="M18 3c2 7-6 8-3 14 2-1 4-3 5-5 8 7 7 17-4 17S3 17 9 10c0 4 1 6 3 7-2-7 5-9 6-14Z"/>
+    <path d="M16 20c-5 5-3 9 1 9s5-5-1-9Z"/>
+  </symbol>
+  <symbol id="icon-drip" viewBox="0 0 32 32">
+    <path d="M4 7h24L18 19h-4L4 7ZM9 3h14M16 21v2M8 25h16v3H8z"/>
+  </symbol>
+</svg>
 
 <div class="sample-badge">✦ 架空店舗の制作サンプル</div>
 
@@ -830,7 +933,7 @@
 <nav aria-label="メインナビゲーション">
   <a href="#top" class="nav-logo">komorebi coffee</a>
   <button class="nav-toggle" type="button" aria-controls="site-menu" aria-expanded="false" aria-label="メニューを開く">
-    <span class="nav-toggle-icon" aria-hidden="true">☰</span> Menu
+    <span class="menu-icon" aria-hidden="true"></span> Menu
   </button>
   <div class="nav-links" id="site-menu">
     <a href="#concept">Concept</a>
@@ -865,14 +968,14 @@
         <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80" alt="カフェのコーヒー">
       </div>
       <div class="float-badge">
-        <div class="float-badge-icon">🌿</div>
+        <div class="float-badge-icon"><svg class="line-icon" aria-hidden="true"><use href="#icon-leaf"/></svg></div>
         <div>
           <div class="float-badge-text">Organic Beans</div>
           <div class="float-badge-sub">契約農園から直接仕入れ</div>
         </div>
       </div>
       <div class="float-badge-2">
-        <div class="float-badge-icon" aria-hidden="true">☕</div>
+        <div class="float-badge-icon"><svg class="line-icon" aria-hidden="true"><use href="#icon-cup"/></svg></div>
         <div>
           <div class="float-badge-text">Hand Drip</div>
           <div class="float-badge-sub">一杯ずつ、丁寧に。</div>
@@ -945,17 +1048,17 @@
     <h2>こだわり</h2>
     <div class="features-grid">
       <div class="feature-item">
-        <div class="feature-icon">🌱</div>
+        <div class="feature-icon"><svg class="line-icon" aria-hidden="true"><use href="#icon-leaf"/></svg></div>
         <h3>オーガニック豆</h3>
         <p>契約農園から直接仕入れた厳選オーガニック豆のみを使用しています。</p>
       </div>
       <div class="feature-item">
-        <div class="feature-icon">🔥</div>
+        <div class="feature-icon"><svg class="line-icon" aria-hidden="true"><use href="#icon-roast"/></svg></div>
         <h3>自家焙煎</h3>
         <p>毎朝店内で少量ずつ丁寧に焙煎。いつでも新鮮な味わいをお届けします。</p>
       </div>
       <div class="feature-item">
-        <div class="feature-icon">✋</div>
+        <div class="feature-icon"><svg class="line-icon" aria-hidden="true"><use href="#icon-drip"/></svg></div>
         <h3>ハンドドリップ</h3>
         <p>一杯ずつ手で淹れるからこそ生まれる、豊かな香りと深い味わい。</p>
       </div>
@@ -1060,6 +1163,65 @@
       document.getElementById('demo-contact-note').hidden = false;
     });
   });
+
+  // Content stays visible if motion APIs are unavailable or setup fails.
+  (() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reducedMotion.matches || !('IntersectionObserver' in window) || !('animate' in Element.prototype)) return;
+
+    const targets = document.querySelectorAll('.concept-text, .menu-header, .menu-card, .features-inner > .section-label, .features h2, .feature-item, .access-content > div, .cta-section');
+    const runningAnimations = new Set();
+    let observer;
+    let motionStopped = false;
+    const showAll = () => {
+      motionStopped = true;
+      if (observer) observer.disconnect();
+      targets.forEach((target) => target.classList.remove('reveal-pending'));
+      runningAnimations.forEach((animation) => animation.finish());
+      runningAnimations.clear();
+    };
+
+    try {
+      observer = new window.IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting || motionStopped) return;
+          const target = entry.target;
+          target.classList.remove('reveal-pending');
+          observer.unobserve(target);
+          if (reducedMotion.matches) return;
+          const grouped = target.matches('.menu-card, .feature-item');
+          const index = grouped ? Array.from(target.parentElement.children).indexOf(target) : 0;
+          try {
+            const animation = target.animate([
+              { opacity: 0, transform: 'translateY(16px)' },
+              { opacity: 1, transform: 'translateY(0)' }
+            ], {
+              duration: 700,
+              delay: mobileViewport.matches ? 0 : Math.min(index, 2) * 90,
+              easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+              fill: 'backwards'
+            });
+            runningAnimations.add(animation);
+            animation.finished.then(() => runningAnimations.delete(animation), () => runningAnimations.delete(animation));
+          } catch {
+            showAll();
+          }
+        });
+      }, { threshold: 0.08 });
+
+      targets.forEach((target) => {
+        if (target.getBoundingClientRect().top >= window.innerHeight) target.classList.add('reveal-pending');
+        observer.observe(target);
+      });
+      reducedMotion.addEventListener('change', () => {
+        if (reducedMotion.matches) showAll();
+      });
+      // Printing includes sections that have not been scrolled into view.
+      window.addEventListener('beforeprint', showAll);
+    } catch {
+      showAll();
+    }
+  })();
 </script>
 
 </body>
