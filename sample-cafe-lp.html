@@ -22,6 +22,12 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 6rem; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent-terracotta);
+    outline-offset: 4px;
+  }
 
   body {
     font-family: 'Zen Kaku Gothic New', sans-serif;
@@ -53,7 +59,26 @@
     color: var(--warm-brown);
     letter-spacing: 0.06em;
     text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
+
+  .nav-toggle {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.5rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: transparent;
+    color: var(--warm-brown);
+    font: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  .nav-toggle-icon { font-size: 1rem; line-height: 1; }
 
   .nav-links { display: flex; gap: 2rem; }
   .nav-links a {
@@ -86,7 +111,7 @@
     position: relative;
   }
 
-  .hero-text { position: relative; }
+  .hero-text { position: relative; min-width: 0; }
 
   .hero-deco {
     position: absolute;
@@ -168,7 +193,7 @@
 
   .hero h1 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
     font-weight: 300;
     line-height: 1.3;
     color: var(--warm-brown);
@@ -181,10 +206,12 @@
     color: var(--accent-terracotta);
   }
 
+  .hero-title-line { display: block; }
+
   .hero-desc {
-    font-size: 0.9rem;
-    color: var(--light-brown);
-    font-weight: 300;
+    font-size: 0.95rem;
+    color: var(--warm-brown);
+    font-weight: 400;
     line-height: 2;
     margin-bottom: 2.5rem;
     max-width: 420px;
@@ -288,12 +315,6 @@
     align-items: center;
     gap: 0.8rem;
     z-index: 2;
-  }
-
-  .stars {
-    color: var(--accent-terracotta);
-    font-size: 1rem;
-    letter-spacing: 2px;
   }
 
   .float-badge-2 .float-badge-text { font-size: 1.05rem; }
@@ -445,9 +466,9 @@
   }
 
   .menu-card p {
-    font-size: 0.78rem;
-    color: var(--text-light);
-    font-weight: 300;
+    font-size: 0.9rem;
+    color: var(--warm-brown);
+    font-weight: 400;
     line-height: 1.8;
     margin-bottom: 1rem;
   }
@@ -648,6 +669,10 @@
   }
 
   .cta-btn-primary {
+    border: 0;
+    font-family: inherit;
+    line-height: inherit;
+    cursor: pointer;
     padding: 0.9rem 2.5rem;
     background: var(--warm-brown);
     color: #fff;
@@ -665,6 +690,9 @@
   }
 
   .cta-btn-secondary {
+    font-family: inherit;
+    line-height: inherit;
+    cursor: pointer;
     padding: 0.9rem 2.5rem;
     background: transparent;
     color: var(--warm-brown);
@@ -679,6 +707,21 @@
 
   .cta-btn-secondary:hover {
     border-color: var(--warm-brown);
+  }
+
+  .cta-section .demo-note {
+    max-width: 36rem;
+    margin: 1.5rem auto 0;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .sample-notice {
+    max-width: 36rem;
+    margin: 1rem auto 0;
+    font-size: 0.8rem;
+    color: var(--light-brown);
   }
 
   /* ── FOOTER ── */
@@ -720,14 +763,52 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.2rem; }
-    .nav-links a { font-size: 0.7rem; }
-    .hero { padding: 7rem 1.5rem 3rem; }
-    .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
-    .hero-visual { order: -1; }
-    .hero-image-placeholder { max-width: 280px; }
-    .float-badge { left: 10px; bottom: 20px; }
+    nav { padding: 0.75rem 1.25rem; gap: 1rem; flex-wrap: wrap; }
+    .nav-logo { font-size: 1.2rem; letter-spacing: 0.04em; }
+    .nav-links { flex-basis: 100%; justify-content: space-between; gap: 0.5rem; }
+    .nav-links a { font-size: 0.8rem; padding: 0.5rem 0; }
+    nav[data-enhanced] { flex-wrap: nowrap; }
+    nav[data-enhanced] .nav-toggle { display: inline-flex; }
+    nav[data-enhanced] .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      flex-direction: column;
+      padding: 0.5rem 1.25rem 1rem;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 12px 20px rgba(92,64,51,0.06);
+    }
+    nav[data-enhanced][data-menu-open="true"] .nav-links { display: flex; }
+    nav[data-enhanced] .nav-links a { padding: 0.65rem 0; }
+    .sample-badge {
+      position: absolute;
+      top: 78px; right: 20px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.6rem;
+      z-index: 1;
+    }
+    .hero { min-height: auto; padding: 7rem 1.25rem 3rem; }
+    .hero-content { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+    .hero h1 { font-size: clamp(1.5rem, 6.8vw, 2.1rem); line-height: 1.5; }
+    .hero-tag { font-size: 0.6rem; letter-spacing: 0.1em; gap: 0.5rem; margin-bottom: 1rem; }
+    .hero-tag::before { width: 18px; flex-shrink: 0; }
+    .hero-desc { margin-bottom: 1.5rem; }
+    .hero-visual { flex-direction: column; align-items: center; gap: 0.75rem; }
+    .hero-image-placeholder { max-width: 280px; aspect-ratio: 4/3; border-radius: 120px 120px 16px 16px; }
+    .float-badge, .float-badge-2 {
+      position: static;
+      width: 100%; max-width: 280px;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      gap: 0.75rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+    .float-badge-icon { width: 34px; height: 34px; flex-shrink: 0; font-size: 0.9rem; }
+    .float-badge-text, .float-badge-2 .float-badge-text { font-size: 0.9rem; }
+    .float-badge-sub, .float-badge-2 .float-badge-sub { font-size: 0.75rem; }
+    .hero-deco { font-size: 9rem; right: 0; top: 0; }
+    .hero-dots, .hero-vertical-text, .hero-line-accent { display: none; }
     .concept { padding: 5rem 1.5rem; }
     .menu { padding: 3rem 1.5rem 5rem; }
     .menu-grid { grid-template-columns: 1fr; }
@@ -743,12 +824,15 @@
 </head>
 <body>
 
-<div class="sample-badge">✦ SAMPLE WORK</div>
+<div class="sample-badge">✦ 架空店舗の制作サンプル</div>
 
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">komorebi coffee</a>
-  <div class="nav-links">
+<nav aria-label="メインナビゲーション">
+  <a href="#top" class="nav-logo">komorebi coffee</a>
+  <button class="nav-toggle" type="button" aria-controls="site-menu" aria-expanded="false" aria-label="メニューを開く">
+    <span class="nav-toggle-icon" aria-hidden="true">☰</span> Menu
+  </button>
+  <div class="nav-links" id="site-menu">
     <a href="#concept">Concept</a>
     <a href="#menu">Menu</a>
     <a href="#access">Access</a>
@@ -757,7 +841,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="top">
   <div class="hero-content">
     <div class="hero-deco">珈琲</div>
     <div class="hero-dots">
@@ -769,7 +853,7 @@
     <div class="hero-line-accent"></div>
     <div class="hero-text">
       <div class="hero-tag">Since 2024 — Nakameguro, Tokyo</div>
-      <h1>木漏れ日のような、<br>やさしい<em>一杯</em>を。</h1>
+      <h1><span class="hero-title-line">木漏れ日のような、</span><span class="hero-title-line">やさしい<em>一杯</em>を。</span></h1>
       <p class="hero-desc">
         中目黒の路地裏にひっそりと佇む、自家焙煎のコーヒースタンド。
         一杯一杯丁寧にハンドドリップで淹れる、特別な時間をお届けします。
@@ -788,10 +872,10 @@
         </div>
       </div>
       <div class="float-badge-2">
+        <div class="float-badge-icon" aria-hidden="true">☕</div>
         <div>
-          <div class="stars">★★★★★</div>
-          <div class="float-badge-text">Google 4.8</div>
-          <div class="float-badge-sub">口コミ 120件以上</div>
+          <div class="float-badge-text">Hand Drip</div>
+          <div class="float-badge-sub">一杯ずつ、丁寧に。</div>
         </div>
       </div>
     </div>
@@ -914,7 +998,7 @@
         </div>
       </div>
     </div>
-    <div class="access-map">Google Map エリア</div>
+    <div class="access-map">地図表示のデモエリア</div>
   </div>
 </section>
 
@@ -922,18 +1006,61 @@
 <section class="cta-section" id="contact">
   <div class="section-label">Contact</div>
   <h2>ご来店をお待ちしています</h2>
-  <p>ご予約・お問い合わせはお電話またはInstagramのDMからお気軽にどうぞ。</p>
+  <p>こちらは架空店舗の制作サンプルです。下のボタンでお問い合わせ導線のデモをご覧いただけます。</p>
   <div class="cta-buttons">
-    <a href="#" class="cta-btn-primary">Instagram をフォロー</a>
-    <a href="#" class="cta-btn-secondary">電話で予約する</a>
+    <button type="button" class="cta-btn-primary" data-demo-contact aria-controls="demo-contact-note">Instagram（デモ）</button>
+    <button type="button" class="cta-btn-secondary" data-demo-contact aria-controls="demo-contact-note">電話予約（デモ）</button>
   </div>
+  <p id="demo-contact-note" class="demo-note" role="status" hidden>架空店舗のサンプルのため、実際の予約・連絡は行われません。実店舗の制作時には、ご指定のInstagramや電話番号につなぎます。</p>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">komorebi coffee</div>
   <div class="footer-copy">© 2026 komorebi coffee. All rights reserved.</div>
+  <p class="sample-notice">架空店舗の自主制作サンプルです。店舗情報・メニューはデザイン用の設定です。</p>
 </footer>
+
+<script>
+  const nav = document.querySelector('nav');
+  const menuToggle = nav.querySelector('.nav-toggle');
+  const menuLinks = nav.querySelector('.nav-links');
+  const mobileViewport = window.matchMedia('(max-width: 768px)');
+
+  function closeMenu(restoreFocus = false) {
+    nav.dataset.menuOpen = 'false';
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'メニューを開く');
+    if (restoreFocus) menuToggle.focus();
+  }
+
+  menuToggle.addEventListener('click', () => {
+    if (menuToggle.getAttribute('aria-expanded') === 'true') {
+      closeMenu();
+    } else {
+      nav.dataset.menuOpen = 'true';
+      menuToggle.setAttribute('aria-expanded', 'true');
+      menuToggle.setAttribute('aria-label', 'メニューを閉じる');
+    }
+  });
+  menuLinks.addEventListener('click', (event) => {
+    if (event.target.closest('a') && mobileViewport.matches) closeMenu(true);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') closeMenu(true);
+  });
+  document.addEventListener('click', (event) => {
+    if (!nav.contains(event.target)) closeMenu();
+  });
+  mobileViewport.addEventListener('change', () => closeMenu());
+  nav.dataset.enhanced = 'true';
+
+  document.querySelectorAll('[data-demo-contact]').forEach((button) => {
+    button.addEventListener('click', () => {
+      document.getElementById('demo-contact-note').hidden = false;
+    });
+  });
+</script>
 
 </body>
 </html>
